@@ -1,0 +1,67 @@
+<section class="container">
+	<div class="slider-wrapper">
+		<div class="slider">
+			<img id="slide-1" src="../../../assets/images/cyberpunk_2077.jpg" alt="3D rendering of an imaginary orange planet in space" />
+			<img id="slide-2" src="../../../assets/images/genshin-impact-version-2-8.png" alt="3D rendering of an imaginary green planet in space" />
+			<img id="slide-3" src="../../../assets/images/ow_2.jpg" alt="3D rendering of an imaginary blue planet in space" />
+		</div>
+		<div class="slider-nav">
+			<a href="#slide-1"></a>
+			<a href="#slide-2"></a>
+			<a href="#slide-3"></a>
+		</div>
+	</div>
+</section>
+
+<div class="filters">
+    <mat-form-field>
+      <mat-label>Sort by</mat-label>
+      <mat-select
+        panelClass="sort-select"
+        [(ngModel)]="sort"
+        (selectionChange)="searchGames(sort)"
+      >
+        <mat-option value="name">Name</mat-option>
+        <mat-option value="-released">Released</mat-option>
+        <mat-option value="-added">Added</mat-option>
+        <mat-option value="-created">Created</mat-option>
+        <mat-option value="-updated">Updated</mat-option>
+        <mat-option value="-rating">Rating</mat-option>
+        <mat-option value="metacritic">Metacritic</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="games">  
+    <ng-container *ngFor="let game of games">
+      <div class="game" (click)="openGameDetails(game.id)">
+        <div class="game-thumb-container">
+          <img
+           *ngIf="game.background_image"
+            src="{{ game.background_image }}"
+            alt="thumbnail"
+            class="game-thumbnail"
+          />
+        <p *ngIf="!game.background_image">No image</p>
+        </div>
+        <div class="game-description">
+          <p class="game-name">{{ game.name }}</p>
+          <div class="game-platforms">
+            <img
+             *ngFor="let gamePlatform of game.parent_platforms"            
+              class="game-platform"
+              src="assets/images/platforms/{{ gamePlatform.platform.slug }}.svg"
+              alt="{{ gamePlatform.platform.slug }}"
+            />
+          </div>
+        </div>
+      </div>
+    </ng-container> 
+
+    <div class="footer">
+      <br>
+      <br>
+      Copyright © Xevo 2022<br>
+    </div>
+  </div>
+  
